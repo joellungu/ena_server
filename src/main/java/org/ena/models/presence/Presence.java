@@ -7,8 +7,17 @@ import javax.persistence.Entity;
 public class Presence extends PanacheEntity {
     String idcarte;
     String lelo;
+    Boolean present;
     String dateArrive;
     String dateDepart;
+
+    public Boolean getPresent() {
+        return present;
+    }
+
+    public void setPresent(Boolean present) {
+        this.present = present;
+    }
 
     public String getLelo() {
         return lelo;

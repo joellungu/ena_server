@@ -40,6 +40,11 @@ public class AgentController {
         oldAgent.setPostnom(agent.getPostnom());
         oldAgent.setGenre(agent.getGenre());
         oldAgent.setNom(agent.getNom());
+
+        oldAgent.setPrenom(agent.getPrenom());
+        oldAgent.setAdresse(agent.getAdresse());
+        oldAgent.setEmail(agent.getEmail());
+
         oldAgent.setFonction(agent.getFonction());
         oldAgent.setMatricule(agent.getMatricule());
         oldAgent.setTelephone(agent.getTelephone());

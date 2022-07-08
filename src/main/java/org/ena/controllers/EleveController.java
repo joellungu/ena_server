@@ -47,6 +47,8 @@ public class EleveController {
         oldEleve.setIdcarte(eleve.getIdcarte());
         oldEleve.setTelephone(eleve.getTelephone());
         oldEleve.setPromotion(eleve.getPromotion());
+        oldEleve.setPrenom(eleve.getPrenom());
+        oldEleve.setAdresse(eleve.getAdresse());
         oldEleve.setNiveauEtude(eleve.getNiveauEtude());
         return oldEleve;
     }

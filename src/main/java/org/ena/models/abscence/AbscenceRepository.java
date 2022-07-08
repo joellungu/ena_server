@@ -12,7 +12,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
-public class AbscenceRepository  implements PanacheRepository<Abscence> {
+public class AbscenceRepository implements PanacheRepository<Abscence> {
     //
     public List<Abscence> getAllByIdForMonth(Long id, String mois) {
         List<Abscence> l = new LinkedList<>();

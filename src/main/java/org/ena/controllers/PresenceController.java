@@ -21,7 +21,7 @@ public class PresenceController {
     @Transactional
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Presence saves(Presence presence){
+    public String saves(Presence presence){
         return presneceRepository.save(presence);
     }
 

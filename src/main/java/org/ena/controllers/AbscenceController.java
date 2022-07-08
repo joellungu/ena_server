@@ -3,6 +3,8 @@ package org.ena.controllers;
 
 import org.ena.models.abscence.Abscence;
 import org.ena.models.abscence.AbscenceRepository;
+import org.ena.models.abscence.JourAbscence;
+import org.ena.models.abscence.JourAbscenceRepository;
 import org.ena.models.presence.Presence;
 
 import javax.inject.Inject;
@@ -17,6 +19,9 @@ public class AbscenceController {
     @Inject
     AbscenceRepository abscenceRepository;
 
+    @Inject
+    JourAbscenceRepository jourAbscenceRepository;
+
     @Path("save")
     @POST
     @Transactional
@@ -25,6 +30,33 @@ public class AbscenceController {
     public Abscence saves(Abscence abscence){
         abscence.persist();
         return abscence;
+    }
+
+    @Path("savejourabscent")
+    @POST
+    @Transactional
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void saveJourAbscence(JourAbscence jourAbscence){
+        jourAbscence.persist();
+    }
+
+    @Path("alljourabscent/{annee}/{mois}")
+    @GET
+    @Transactional
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<JourAbscence> allJourAbscence(@PathParam("annee") String annee, @PathParam("mois") String mois){
+        return jourAbscenceRepository.getAllJourAbscence(annee, mois);
+    }
+
+    @Path("alljourabscent")
+    @GET
+    @Transactional
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<JourAbscence> allJourAbscences(){
+        return jourAbscenceRepository.listAll();
     }
 
     @Path("all/{id}/{mois}")

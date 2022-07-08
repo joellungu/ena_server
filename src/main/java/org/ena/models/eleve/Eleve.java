@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 public class Eleve extends PanacheEntity {
     String nom;
     String postnom;
+    String prenom;
+    String adresse;
     String email;
     String telephone;
     String filiere;
@@ -15,6 +17,22 @@ public class Eleve extends PanacheEntity {
     String niveauEtude;
     String categorie;
     String promotion;
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
 
     public String getIdcarte() {
         return idcarte;

@@ -48,40 +48,51 @@ public class PresneceRepository implements PanacheRepository<Presence> {
         return l;
     }
 
-    public Presence save(Presence presence){
+    public String save(Presence presence){
         LocalDate d = LocalDate.now();
         Date dh = new Date();
+        Date dh1 = new Date();
+        dh1.setHours(15);
+        dh1.setMinutes(30);
         List<Presence> l = listAll();
         AtomicReference<Boolean> check = new AtomicReference<>(false);
         AtomicReference<Long> id_ = new AtomicReference<>(0L);
         AtomicReference<String> dd = new AtomicReference<>("");
+        String le = ""+d.getYear()+"-"+d.getMonthValue()+"-"+d.getDayOfMonth()+"";
 
-        l.forEach((e)->{
-            String lelo = ""+d.getYear()+"-"+d.getMonthValue()+"-"+d.getDayOfMonth()+"";
-            System.out.println("lelo: "+lelo+"e: "+e.getLelo().equals(lelo)+":"+e.getLelo());
-            //
-            if(e.getLelo().equals(lelo) && e.getIdcarte().equals(presence.getIdcarte())){
-                check.set(true);
-                id_.set(e.id);
-                dd.set(e.getDateDepart());
+        if(presence.getLelo().equals(le)){
+            l.forEach((e)->{
+                String lelo = ""+d.getYear()+"-"+d.getMonthValue()+"-"+d.getDayOfMonth()+"";
+                System.out.println("lelo: "+lelo+"e: "+e.getLelo().equals(lelo)+":"+e.getLelo());
+                //
+                if(e.getLelo().equals(lelo) && e.getIdcarte().equals(presence.getIdcarte())){
+                    check.set(true);
+                    id_.set(e.id);
+                    dd.set(e.getDateDepart());
+                }
+            });
+            if(check.get()){//dh.after(dh1) ||
+                System.out.println("Cool+ "+dd.get());
+                Presence presence1 = Presence.findById(id_.get());
+                presence1.setDateDepart(presence.getDateDepart());
+                //
+                System.out.println("id: "+presence1.id);
+                System.out.println("lelo: "+presence1.getLelo());
+                System.out.println("da: "+presence1.getDateArrive());
+                System.out.println("dd: "+presence1.getDateDepart());
+                //
+                return "Sortie enregistré";
+            }else{
+                if(check.get()){
+                    return "Vous-avez déjà un enregistrement de la presence";
+                }else {
+                    System.out.println("Pas cool");
+                    presence.persist();
+                    return "Presence enregistré";
+                }
             }
-        });
-        if(check.get()){
-            System.out.println("Cool+ "+dd.get());
-            Presence presence1 = Presence.findById(id_.get());
-            presence1.setDateDepart(presence.getDateDepart());
-            //
-            System.out.println("id: "+presence1.id);
-            System.out.println("lelo: "+presence1.getLelo());
-            System.out.println("da: "+presence1.getDateArrive());
-            System.out.println("dd: "+presence1.getDateDepart());
-
-            return presence1;
         }else{
-            System.out.println("Pas cool");
-            presence.persist();
-            return presence;
+            return null;
         }
-
     }
 }
