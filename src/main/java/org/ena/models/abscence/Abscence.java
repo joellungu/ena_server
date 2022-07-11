@@ -6,17 +6,17 @@ import javax.persistence.Entity;
 
 @Entity
 public class Abscence extends PanacheEntity {
-    String idutilisateur;
+    Long idutilisateur;
     Boolean type;
     String motifs;
     String dateDebut;
     String dateFin;
 
-    public String getIdutilisateur() {
+    public Long getIdutilisateur() {
         return idutilisateur;
     }
 
-    public void setIdutilisateur(String idutilisateur) {
+    public void setIdutilisateur(Long idutilisateur) {
         this.idutilisateur = idutilisateur;
     }
 

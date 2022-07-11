@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 @ApplicationScoped
 public class PresneceRepository implements PanacheRepository<Presence> {
-    public List<Presence> getAllByIdForMonth(String idcarte, String mois) {
+    public List<Presence> getAllByIdForMonth(String idcarte, String mois, String annee) {
         List<Presence> l = new LinkedList<>();
         //
         listAll().forEach((e) -> {
@@ -21,26 +21,27 @@ public class PresneceRepository implements PanacheRepository<Presence> {
             //System.out.println("Le mois: "+e.getDateTime().split("-")[1].equals(mois));
             System.out.println("Le id: "+e.getIdcarte()+"  : "+idcarte);
             System.out.println("Le id: "+e.getIdcarte().equals(idcarte));
-            if(e.getDateArrive().split("-")[1].equals(mois) && e.getIdcarte().equals(idcarte)){
+            if(e.getLelo().split("-")[0].equals(annee)
+                    && e.getLelo().split("-")[1].equals(mois)
+                    && e.getIdcarte().equals(idcarte)){
                 l.add(e);
             }
         });
         //
         return l;
     }
-    public List<Presence> allbydate(String ann, String mois, String jour) {
+    public List<Presence> allbydate(String date) {
         List<Presence> l = new LinkedList<>();
         //
         listAll().forEach((e) -> {
-            String dd = e.getDateArrive().split(" ")[0];
-            Boolean bAnn = dd.split("-")[0].equals(ann);
-            Boolean bMois = dd.split("-")[1].equals(mois);
-            Boolean bJour = dd.split("-")[2].equals(jour);
+            String dd = e.getLelo();
+            LocalDate d1 = LocalDate.parse(dd);
+            LocalDate d2 = LocalDate.parse(date.split(" ")[0]);
 
             //System.out.println("Le mois: "+e.getDateTime().split("-")[0]+"  : "+ann);
             //System.out.println("Le mois: "+e.getDateTime().split("-")[1]+"  : "+mois);
             //System.out.println("Le mois: "+e.getDateTime().split("-")[2]+"  : "+jour);
-            if(bAnn && bMois && bJour){
+            if(d1.equals(d2)){
                 l.add(e);
             }
         });
@@ -59,13 +60,19 @@ public class PresneceRepository implements PanacheRepository<Presence> {
         AtomicReference<Long> id_ = new AtomicReference<>(0L);
         AtomicReference<String> dd = new AtomicReference<>("");
         String le = ""+d.getYear()+"-"+d.getMonthValue()+"-"+d.getDayOfMonth()+"";
+        System.out.println(le);
+        LocalDate dlelo = LocalDate.parse(presence.getLelo());
 
-        if(presence.getLelo().equals(le)){
+        if(dlelo.equals(d)){
             l.forEach((e)->{
                 String lelo = ""+d.getYear()+"-"+d.getMonthValue()+"-"+d.getDayOfMonth()+"";
                 System.out.println("lelo: "+lelo+"e: "+e.getLelo().equals(lelo)+":"+e.getLelo());
                 //
-                if(e.getLelo().equals(lelo) && e.getIdcarte().equals(presence.getIdcarte())){
+                //
+                LocalDate d1 = LocalDate.parse(e.getLelo());
+                LocalDate d2 = LocalDate.now();
+                //
+                if(d1.equals(d2) && e.getIdcarte().equals(presence.getIdcarte())){
                     check.set(true);
                     id_.set(e.id);
                     dd.set(e.getDateDepart());

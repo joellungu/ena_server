@@ -25,13 +25,15 @@ public class PresenceController {
         return presneceRepository.save(presence);
     }
 
-    @Path("all/{id}/{mois}")
+    @Path("all/{id}/{mois}/{annee}")
     @GET
     @Transactional
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public List<Presence> allByIdMonth(@PathParam("id") String id, @PathParam("mois") String mois){
-        return presneceRepository.getAllByIdForMonth(id,mois);
+    public List<Presence> allByIdMonth(@PathParam("id") String id,
+                                       @PathParam("mois") String mois,
+                                       @PathParam("annee") String annee){
+        return presneceRepository.getAllByIdForMonth(id,mois,annee);
     }
 
     @Path("detailsmois")
@@ -44,13 +46,12 @@ public class PresenceController {
         return presence;
     }
 
-    @Path("allbydate/{ann}/{mois}/{jour}")
+    @Path("allbydate/{date}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public List<Presence> allbydate(@PathParam("ann") String ann,@PathParam("mois") String mois,
-                                    @PathParam("jour") String jour){
-        return presneceRepository.allbydate(ann,mois,jour);
+    public List<Presence> allbydate(@PathParam("date") String date){
+        return presneceRepository.allbydate(date);
     }
 
     @Path("allss")

@@ -59,13 +59,25 @@ public class AbscenceController {
         return jourAbscenceRepository.listAll();
     }
 
-    @Path("all/{id}/{mois}")
+    @Path("all/{id}/{mois}/{annee}")
     @GET
     @Transactional
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public List<Abscence> allByIdMonth(@PathParam("id") Long id, @PathParam("mois") String mois){
-        return abscenceRepository.getAllByIdForMonth(id,mois);
+    public List<Abscence> allByIdMonth1(@PathParam("id") Long id, @PathParam("mois") String mois, @PathParam("annee") String annee){
+        System.out.println("le contenu: "+id+"::"+mois+"::"+annee);
+        return abscenceRepository.getAllByIdForMonth(id,mois,annee);
+    }
+
+    @Path("alljourabscent/{id}/{mois}/{annee}")
+    @GET
+    @Transactional
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<JourAbscence> allByIdMonth2(@PathParam("id") Long id,
+                                       @PathParam("mois") String mois,
+                                       @PathParam("annee") String annee){
+        return abscenceRepository.getAllJourAbscence(id,mois,annee);
     }
 
     @Path("all")

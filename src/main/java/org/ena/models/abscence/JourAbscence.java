@@ -8,6 +8,15 @@ import javax.persistence.Entity;
 public class JourAbscence extends PanacheEntity {
     String motifs;
     String date;
+    Long idutilisateur;
+
+    public Long getIdutilisateur() {
+        return idutilisateur;
+    }
+
+    public void setIdutilisateur(Long idutilisateur) {
+        this.idutilisateur = idutilisateur;
+    }
 
     public String getMotifs() {
         return motifs;
