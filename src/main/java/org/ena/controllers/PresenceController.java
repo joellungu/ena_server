@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.HashMap;
 import java.util.List;
 
 @Path("presence")
@@ -50,7 +51,7 @@ public class PresenceController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public List<Presence> allbydate(@PathParam("date") String date){
+    public HashMap allbydate(@PathParam("date") String date){
         return presneceRepository.allbydate(date);
     }
 

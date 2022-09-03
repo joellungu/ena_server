@@ -10,7 +10,14 @@ public class Presence extends PanacheEntity {
     Boolean present;
     String dateArrive;
     String dateDepart;
+    Long idutilisateur;
 
+    public Long getIdutilisateur() {
+        return idutilisateur;
+    }
+    public void setIdutilisateur(Long idutilisateur) {
+        this.idutilisateur = idutilisateur;
+    }
     public Boolean getPresent() {
         return present;
     }

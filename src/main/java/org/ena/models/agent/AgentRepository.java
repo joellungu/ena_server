@@ -34,15 +34,73 @@ public class AgentRepository implements PanacheRepository<Agent> {
     }
 
     public Agent getDetails(String id){
+        System.out.println("Le id: "+id);
         Predicate<Agent> prediction = a -> a.getIdcarte().equals(id);
+        Agent agent = new Agent();
         //
         try {
-            Agent a = listAll().stream().filter(prediction).collect(Collectors.toList()).stream().findFirst().get();
+            for (Agent ag : listAll()) {
+                if (ag.idcarte.equals(id)) {
+                    agent = ag;
+                    break;
+                }
+            }
+            if (agent.idcarte != null) {
+                //Agent a = listAll().stream().filter(prediction).collect(Collectors.toList()).stream().findFirst().get();
 
-            return a;
+                return agent;
+            } else {
+                return null;
+            }
         }catch (Exception ex){
             return null;
         }
-
     }
+    public Agent getAgentByMatricule(String matricule){
+        System.out.println("Le id: "+matricule);
+        //Predicate<Agent> prediction = a -> a.getMatricule().equals(matricule);
+        Agent agent = new Agent();
+        //
+        try {
+            for (Agent ag : listAll()) {
+                if (ag.idcarte.equals(matricule)) {
+                    agent = ag;
+                    break;
+                }
+            }
+            if (agent.idcarte != null) {
+                //Agent a = listAll().stream().filter(prediction).collect(Collectors.toList()).stream().findFirst().get();
+
+                return agent;
+            } else {
+                return null;
+            }
+        }catch (Exception ex){
+            return null;
+        }
+    }
+    public Long getAgentId(String id){
+        System.out.println("Le id: "+id);
+        Predicate<Agent> prediction = a -> a.getIdcarte().equals(id);
+        Agent agent = new Agent();
+        //
+        try {
+            for (Agent ag : listAll()) {
+                if (ag.idcarte.equals(id)) {
+                    agent = ag;
+                    break;
+                }
+            }
+            if (agent.idcarte != null) {
+                //Agent a = listAll().stream().filter(prediction).collect(Collectors.toList()).stream().findFirst().get();
+
+                return agent.id;
+            } else {
+                return null;
+            }
+        }catch (Exception ex){
+            return null;
+        }
+    }
+
 }
